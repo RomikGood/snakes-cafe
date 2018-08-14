@@ -2,7 +2,7 @@
 
 **Author**: Roman Kireev
 
-**Version**: 1.0.0 
+**Version**: 1.0.0   
 
 ## Overview
 This application lets the users place orders from the Snake Cafe menu. It displays current item odered as well as the final order when finished.
