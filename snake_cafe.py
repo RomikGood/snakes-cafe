@@ -1,4 +1,6 @@
 from textwrap import dedent
+import sys
+import re
 from collections import defaultdict
 import uuid
 
@@ -91,28 +93,49 @@ def place_order():
     order_limit = 0
     greeting()
     while order_limit < 20:
-        item =  input().lower()
+        item =  input('Enter item (enter \'order\' to see you order): ').lower()
         if item in menu:
             order[item] += 1
             order_limit += 1
             if order[item] == 1:
                 print ('**  ' + str(order[item]) + ' order of ' + item + ' has been added to your order   **\n')
+                
+                
             else:
                 print ('**  ' + str(order[item]) + ' orders of ' + item + ' have been added to your order   **\n')
-            print(question)
-        if item not in menu and item not in ( 'quit', 'order', 'menu'):
-            print (dedent('''
-            **  Item you entered is not in menu.  **\n
-        '''))
+        print_subtotal(order)        
+            # print(question)
+        # if item not in menu and item not in ( 'quit', 'order', 'menu', 'delete '):
+        #     print (dedent('''
+        #     **  Item you entered is not in menu.  **\n
+        # '''))
             
         if item == 'order':
             print (print_order(order))
         
         if item == 'menu':
             print(greeting())
+
+        # remove item from your order 
+        if item.split(' ')[0] == 'delete':
+            del_item = item.split(' ')[1]
+            if del_item in order:
+                order[del_item] -= 1
+                print('**  You removed one ' + del_item + ' from your order  **')
+                print('-' * 30)
+                print_subtotal(order)
+                
+
+        
+        if item == 'quit':
+            exit()
+            return
         
 
+
 def print_order(order):
+    '''this function culculates tax and prints subtotal and total of the order
+    '''
     order_sub_total = 0
     print(dedent(f'''
         {'*' * WIDTH}
@@ -135,11 +158,26 @@ def print_order(order):
             **  Thank you! Please come again!  **\n
         '''))   
 
+def print_subtotal(order):
+    order_sub_total = 0
+    for key, value in order.items() :
+        # print ('{} x {} {:>16}$'.format(key, value, value*menu[key]))
+        order_sub_total += value*menu[key]
+    print('-' * 30)
+    print ('Your order subtotal: ' + str(order_sub_total) +'$')
+    print('-' * 30)
+
 def tax(amount):
     return round(amount * .101, 2)
 
 def order_total(order):
     return order + tax(order)
+
+def exit():
+    print(dedent('''
+        Thanks for visiting Snake Cafe!
+    '''))
+    sys.exit()
 
 if __name__ == '__main__':
     place_order()
