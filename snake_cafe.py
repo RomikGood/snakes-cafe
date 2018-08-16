@@ -8,6 +8,9 @@ import uuid
 
 
 
+
+
+
 WIDTH = 80
 def greeting():
     """Function which will greet the user when the application executes for
@@ -118,9 +121,6 @@ def open_csv_menu():
             print(e)
             
 
-
-# menu = {'wings' : 7, 'cookies': 1, 'taco': 2, 'nachos': 2, 'sliders':6, 'rolls': 2,'salmon': 5,'steak': 10, 'meat tornado': 4, 'cod': 20, 'pizza':9, 'green salad':9, 'potato salad': 7, 'Roasted Potatoes': 11,'mashed potatoes': 7,'coleslaw': 5, 'sausage': 6, 'ice cream': 3, 'cake': 2,'pie': 5, 'banana bread':4, 'sorbet':5, 'chocolate':3, 'coffee': 2, 'tea': 2, 'bloody mary': 10, 'Beer': 5, 'wine': 6, 'juice': 2  }
-
 menu = { 'wings' : [7,10], 'cookies': [1, 10], 'taco': [2, 10], 'nachos':[2,10], 'sliders':[6,10], 'rolls': [3, 10],'salmon': [10, 10],'steak': [15, 10], 'meat tornado': [11, 10], 'cod': [20, 10], 'pizza': [9, 10], 'green salad': [8, 10], 'potato salad': [7, 10], 'Roasted Potatoes': [11, 10],'mashed potatoes': [8, 10],'coleslaw': [5, 10], 'sausage': [6, 10], 'ice cream': [5, 10], 'cake': [2, 10],'pie':  [5, 10], 'banana bread': [4, 10], 'sorbet': [7, 10], 'chocolate': [3, 10], 'coffee': [2, 10], 'tea':  [1, 10], 'bloody mary': [10, 10], 'Beer': [5, 10], 'wine': [12, 10], 'juice': [2, 10] }
 
 order = defaultdict(int)
@@ -132,13 +132,22 @@ def place_order():
         item =  input('Enter item (enter \'order\' to see you order): ').lower()
         if item in menu:
             # enter item quantity
-            item_qt = int(input('Enter quantity: '))
+            # item_qt = int(input('Enter quantity: '))
+            try:
+                item_qt = int(input('Enter quantity: '))
+            except ValueError:
+                item_qt = 1
             if item_qt < menu[item][1]:
                 order[item] += item_qt # adds to order
                 menu[item][1] -= item_qt # removes from inventory
             else:
                 print('Not sufficient inventory. Please order smaller amount')
-                item_qt = int(input('Enter quantity: '))
+                # item_qt = int(input('Enter quantity: '))
+                try:
+                    item_qt = int(input('Enter quantity: '))
+                except ValueError:
+                    item_qt = 1
+
                 order[item] += item_qt  # adds to order
                 menu[item][1] -= item_qt # removes from inventory
             order_limit += 1
@@ -158,21 +167,24 @@ def place_order():
             print(print_menu())
 
         # remove item from the order 
-        elif item.split(' ')[0] == 'delete':
-            del_item = item.split(' ')[1]
-            if del_item in order:
-                order[del_item] -= 1
-                print('**  You removed one ' + del_item + ' from your order  **')
-                print('-' * 30)
-                print_subtotal(order)
-                
-        
+        elif item.split(' ')[0] == 'remove':
+            remove_item(item.split(' ')[1])
+
         elif item == 'quit':
             exit()
             return
     
         # elif item not in menu and item not in ('order', 'menu', 'quit', 'delete'):
         #     print('Item is not in menu. Please see our menu')
+
+def remove_item(rem_item):
+    if rem_item in order:
+        order[rem_item] -= 1
+        print('**  You removed one ' + rem_item + ' from your order  **')
+        print('-' * 30)
+        print_subtotal(order)
+
+
 
 
 def print_order(order):
@@ -188,14 +200,14 @@ def print_order(order):
     
     print('-' * 30)
     for key, value in order.items() :
-        print ('{} x {} ${:>16}'.format(key, value, value*menu[key][0]))
+        print ('{} x {} {:>16}$'.format(key, value, value*menu[key][0]))
 
         order_sub_total += value*menu[key][0]
     print('-' * 30)
-    print('Subtotal:    ${:>15} '.format(str(order_sub_total)))
-    print('Taxes:       ${:>15} '.format(str(tax(order_sub_total))))
+    print('Subtotal:    {:>15}$ '.format(str(order_sub_total)))
+    print('Taxes:       {:>15}$ '.format(str(tax(order_sub_total))))
     print('-' * 30)
-    print('Order Total: ${:>15} ' .format(str(order_total(order_sub_total))))
+    print('Order Total: {:>15}$ ' .format(str(order_total(order_sub_total))))
     print(dedent('''
             **  Thank you! Please come again!  **\n
         '''))   
@@ -226,5 +238,7 @@ def exit():
 
 
 if __name__ == '__main__':
-    # place_order()
-     start_order()
+    try:
+        start_order()
+    except KeyboardInterrupt:
+        exit()
