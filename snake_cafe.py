@@ -5,8 +5,10 @@ import csv
 from collections import defaultdict
 import uuid
 
-WIDTH = 80
 
+
+
+WIDTH = 80
 def greeting():
     """Function which will greet the user when the application executes for
     the first time.
@@ -31,52 +33,52 @@ def print_menu():
         
         {'Appetizers'}
         {'-----------------'}
-        {'Wings ----------- 7$'}
-        {'Cookies --------- 1$'}
-        {'Rolls ----------- 2$'}
-        {'Sliders --------- 6$'}
-        {'Taco ------------ 2$'}
-        {'Nachos ---------- 10$'}
+        {'Wings ----------- $7'}
+        {'Cookies --------- $1'}
+        {'Rolls ----------- $2'}
+        {'Sliders --------- $6'}
+        {'Taco ------------ $2'}
+        {'Nachos ---------- $10'}
         {' '}
 
         {'Entrees'}
         {'-----------------'}
-        {'Salmon ---------- 10$'}
-        {'Steak------------ 10$'}
-        {'Meat Tornado ---- 10$'}
-        {'Cod ------------- 20$'}
-        {'Rolls ----------- 3$'}
-        {'Pizza ----------- 9$'}
+        {'Salmon ---------- $10'}
+        {'Steak------------ $10'}
+        {'Meat Tornado ---- $10'}
+        {'Cod ------------- $20'}
+        {'Rolls ----------- $3'}
+        {'Pizza ----------- $9'}
         {' '}
 
         {'Sides'}
         {'-----------------'}
-        {'Green Salad ----- 9$'}
-        {'Potato Salad ---- 7$'}
-        {'Roast Potatoes -- 11$'}
-        {'Mashed Potatoes - 10$'}
-        {'Coleslaw -------- 5$'}
-        {'Sausage --------- 6$'}
+        {'Green Salad ----- $9'}
+        {'Potato Salad ---- $7'}
+        {'Roast Potatoes -- $11'}
+        {'Mashed Potatoes - $10'}
+        {'Coleslaw -------- $5'}
+        {'Sausage --------- $6'}
         {' '}
 
         {'Desserts'}
         {'-----------------'}
-        {'Ice Cream ------- 3$'}
-        {'Cake ------------ 4$'}
-        {'Pie ------------- 5$'}
-        {'Banana Bread ---- 4$'}
-        {'Sorbet ---------- 9$'}
-        {'Chocolate ------- 4$'}
+        {'Ice Cream ------- $3'}
+        {'Cake ------------ $4'}
+        {'Pie ------------- $5'}
+        {'Banana Bread ---- $4'}
+        {'Sorbet ---------- $9'}
+        {'Chocolate ------- $4'}
         {' '}
 
         {'Drinks'}
         {'-----------------'}
-        {'Coffee ---------- 3$'}
-        {'Tea ------------- 1$'}
-        {'Blood Mary ------ 10$'}
-        {'Beer ------------ 9$'}
-        {'Wine ------------ 12$'}
-        {'Juice ----------- 2$'}
+        {'Coffee ---------- $3'}
+        {'Tea ------------- $1'}
+        {'Blood Mary ------ $10'}
+        {'Beer ------------ $9'}
+        {'Wine ------------ $12'}
+        {'Juice ----------- $2'}
 
         {' '}
         {'*' * WIDTH}
@@ -110,7 +112,7 @@ def open_csv_menu():
                     print('***************************************')
                     line_count += 1
                 else:
-                    print(f'\t{row[0]} ** {row[1]} ** Qt({row[2]}) --------- {row[3]}$')
+                    print(f'\t{row[0]} ** {row[1]} ** Qt({row[2]}) --------- ${row[3]}')
                     line_count += 1
     except (FileNotFoundError, TypeError)as e:
             print(e)
@@ -186,14 +188,14 @@ def print_order(order):
     
     print('-' * 30)
     for key, value in order.items() :
-        print ('{} x {} {:>16}$'.format(key, value, value*menu[key][0]))
+        print ('{} x {} ${:>16}'.format(key, value, value*menu[key][0]))
 
         order_sub_total += value*menu[key][0]
     print('-' * 30)
-    print('Subtotal:    {:>15}$ '.format(str(order_sub_total)))
-    print('Taxes:       {:>15}$ '.format(str(tax(order_sub_total))))
+    print('Subtotal:    ${:>15} '.format(str(order_sub_total)))
+    print('Taxes:       ${:>15} '.format(str(tax(order_sub_total))))
     print('-' * 30)
-    print('Order Total: {:>15}$ ' .format(str(order_total(order_sub_total))))
+    print('Order Total: ${:>15} ' .format(str(order_total(order_sub_total))))
     print(dedent('''
             **  Thank you! Please come again!  **\n
         '''))   
@@ -206,7 +208,7 @@ def print_subtotal(order):
         
         order_sub_total += value*menu[key][0]
     print('-' * 30)
-    print ('Your order subtotal: ' + str(order_sub_total) +'$')
+    print ('Your order subtotal:  $' + str(order_sub_total))
     print('-' * 30)
 
 def tax(amount):
