@@ -1,0 +1,30 @@
+Snake Cafe Menu
+Wings,Appetizers,10,7
+Cookies,Appetizer,10,1
+Taco,Appetizer,10,2
+Nachos,Appetizer,10,2
+Sliders,Appetizer,10,6
+Rolls,Appetizer,10,2
+Salmon,Entree,10,5
+Steak,Entree,10,3
+Meat tornado,Entrees,10,4
+Cod,Entree,10,20
+Pizza,Entree,10,9
+Green salad,Sides,10,9
+Potato salad,Sides,10,7
+Roasted Potatoes,Sides,10,11
+Mashed potatoes,Sides,10,7
+Coleslaw,Sides,10,5
+Sausage,Sides,10,6
+Ice cream,Desserts,10,3
+Cake,Desserts,10,2
+Pie,Desserts,10,5
+Banana bread,Desserts,10,4
+Sorbet,Desserts,10,5
+Chocolate,Desserts,10,3
+Coffee,Drinks,10,2
+Tea,Drinks,10,2
+Bloody mary,Drinks,10,10
+Beer,Drinks,10,5
+Wine,Drinks,10,12
+Juice,Drinks,10,2
