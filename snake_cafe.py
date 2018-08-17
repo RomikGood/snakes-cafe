@@ -5,12 +5,6 @@ import csv
 from collections import defaultdict
 import uuid
 
-
-
-
-
-
-
 WIDTH = 80
 def greeting():
     """Function which will greet the user when the application executes for
@@ -18,12 +12,14 @@ def greeting():
     """
     ln_one = 'Welcome to the Snake Cafe!'
     ln_two = 'Please see menu options below.'
+    ln_tree = 'You can load your own menu file in this direcory'
    
 
     print(dedent(f'''
         {'*' * WIDTH}
         {'**   '  + ln_one + '  **'}
         {'**   '  + ln_two + '  **'}
+        {'**   '  + ln_tree + '  **'}
         {'**'}
         {'*' * WIDTH}
         '''))
@@ -95,33 +91,39 @@ def start_order():
     greeting()
     item =  input('Would you like custom menu: ').lower()
     if item == 'yes':
-        open_csv_menu()
+        display_csv_menu()
+        menu = load_csv_menu()
         place_order()
+        return menu
     else:
         print_menu()
         place_order()
+                
+      
 
-
-def open_csv_menu():
+menu = { 'wings' : [7,10], 'cookies': [1, 10], 'taco': [2, 10], 'nachos':[2,10], 'sliders':[6,10], 'rolls': [3, 10],'salmon': [10, 10],'steak': [15, 10], 'meat tornado': [11, 10], 'cod': [20, 10], 'pizza': [9, 10], 'green salad': [8, 10], 'potato salad': [7, 10], 'Roasted Potatoes': [11, 10],'mashed potatoes': [8, 10],'coleslaw': [5, 10], 'sausage': [6, 10], 'ice cream': [5, 10], 'cake': [2, 10],'pie':  [5, 10], 'banana bread': [4, 10], 'sorbet': [7, 10], 'chocolate': [3, 10], 'coffee': [2, 10], 'tea':  [1, 10], 'bloody mary': [10, 10], 'Beer': [5, 10], 'wine': [12, 10], 'juice': [2, 10] }
+def display_csv_menu():
     '''opens custom menu as csv file. throws an error if its not csv '''
     try:
         with open('menu.csv') as csvfile:
             readCSV = csv.reader(csvfile, delimiter=',')
-            line_count = 0
             for row in readCSV:
-                if line_count == 0:
-                    print('***************************************')
-                    print(f'*******    {", ".join(row)}    *********')
-                    print('***************************************')
-                    line_count += 1
-                else:
-                    print(f'\t{row[0]} ** {row[1]} ** Qt({row[2]}) --------- ${row[3]}')
-                    line_count += 1
+                print(f'\t{row[0]} ** {row[1]} ** Qt({row[2]}) --------- ${row[3]}')
+ 
     except (FileNotFoundError, TypeError)as e:
             print(e)
-            
 
-menu = { 'wings' : [7,10], 'cookies': [1, 10], 'taco': [2, 10], 'nachos':[2,10], 'sliders':[6,10], 'rolls': [3, 10],'salmon': [10, 10],'steak': [15, 10], 'meat tornado': [11, 10], 'cod': [20, 10], 'pizza': [9, 10], 'green salad': [8, 10], 'potato salad': [7, 10], 'Roasted Potatoes': [11, 10],'mashed potatoes': [8, 10],'coleslaw': [5, 10], 'sausage': [6, 10], 'ice cream': [5, 10], 'cake': [2, 10],'pie':  [5, 10], 'banana bread': [4, 10], 'sorbet': [7, 10], 'chocolate': [3, 10], 'coffee': [2, 10], 'tea':  [1, 10], 'bloody mary': [10, 10], 'Beer': [5, 10], 'wine': [12, 10], 'juice': [2, 10] }
+
+def load_csv_menu():
+    '''funtion loads csv menu'''
+    with open('menu.csv') as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        cust_menu = {}
+        for row in readCSV:
+            # row[0],row[2],row[3] = row
+            cust_menu[row[0]] = [int(row[3]),int(row[2])]
+        return cust_menu
+
 
 order = defaultdict(int)
 
