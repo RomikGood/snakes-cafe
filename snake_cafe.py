@@ -102,6 +102,8 @@ def start_order():
       
 
 menu = { 'wings' : [7,10], 'cookies': [1, 10], 'taco': [2, 10], 'nachos':[2,10], 'sliders':[6,10], 'rolls': [3, 10],'salmon': [10, 10],'steak': [15, 10], 'meat tornado': [11, 10], 'cod': [20, 10], 'pizza': [9, 10], 'green salad': [8, 10], 'potato salad': [7, 10], 'Roasted Potatoes': [11, 10],'mashed potatoes': [8, 10],'coleslaw': [5, 10], 'sausage': [6, 10], 'ice cream': [5, 10], 'cake': [2, 10],'pie':  [5, 10], 'banana bread': [4, 10], 'sorbet': [7, 10], 'chocolate': [3, 10], 'coffee': [2, 10], 'tea':  [1, 10], 'bloody mary': [10, 10], 'Beer': [5, 10], 'wine': [12, 10], 'juice': [2, 10] }
+
+
 def display_csv_menu():
     '''opens custom menu as csv file. throws an error if its not csv '''
     try:
