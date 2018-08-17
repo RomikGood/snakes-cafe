@@ -21,6 +21,7 @@ no API
 
 08-13-2018 4:59pm - Created place_order and print_order functions.
 08-14-2018 10:00pm - Added addtional functionality and test functions
+08 16-2018 8:00pm - fixed minor bugs and error exceptions
 
 ## License
 This project is licensed under the MIT license
